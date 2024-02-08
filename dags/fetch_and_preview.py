@@ -7,7 +7,7 @@ def get_data(**kwargs):
     import requests
     import pandas as pd
 
-    url = 'https://github.com/Satwikkumart/bigdata/blob/main/new-output.csv'
+    url = 'https://raw.githubusercontent.com/airscholar/ApacheFlink-SalesAnalytics/main/output/new-output.csv'
     response = requests.get(url)
 
     if response.status_code == 200:
