@@ -1,11 +1,13 @@
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import datetime, timedelta
-import requests
-import pandas as pd
+
 
 def get_data(**kwargs):
-    url = 'https://raw.githubusercontent.com/airscholar/ApacheFlink-SalesAnalytics/main/output/new-output.csv'
+    import requests
+    import pandas as pd
+
+    url = 'https://github.com/Satwikkumart/bigdata/blob/main/new-output.csv'
     response = requests.get(url)
 
     if response.status_code == 200:
@@ -19,6 +21,9 @@ def get_data(**kwargs):
         raise Exception(f'Failed to get data, HTTP status code: {response.status_code}')
 
 def preview_data(**kwargs):
+    import pandas as pd
+    import json
+
     output_data = kwargs['ti'].xcom_pull(key='data', task_ids='get_data')
     print(output_data)
     if output_data:
@@ -43,7 +48,7 @@ def preview_data(**kwargs):
 
 default_args = {
     'owner': 'datamasterylab.com',
-    'start_date': datetime(year=2024, month=2, day=7),
+    'start_date': datetime(year=2024, month=2, day=8),
     'catchup': False
 }
 
